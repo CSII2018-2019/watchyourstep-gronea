@@ -1,7 +1,17 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class WatchYourStep extends JFrame{
 
@@ -23,18 +33,14 @@ public class WatchYourStep extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	private static void initGUI() {
+	public void initGUI() {
 		//TITLE
-		//create label
 		JLabel titleLabel = new JLabel("Watch Your Step");
 		Font titleFont = new Font (Font.SERIF, Font.BOLD + Font.ITALIC, 32);
 		titleLabel.setFont(titleFont);
 		titleLabel.setForeground(Color.MAGENTA);
-		//titleLabel.setBackground(Color.BLACK); 
-		//or Go on Google and search rgb color picker to find new colors then use:
 		titleLabel.setBackground(new Color(29,62,114));
 		titleLabel.setOpaque(true);
-		//Add the label to the window, make sure it is on top
 		add(titleLabel, BorderLayout.PAGE_START);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER); //left or right
 	}
