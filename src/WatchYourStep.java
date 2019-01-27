@@ -3,9 +3,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +17,12 @@ import javax.swing.UIManager;
 
 public class WatchYourStep extends JFrame{
 
+	private static final int GRIDSIZE = 10;
+	private static final int NUMBEROFHOLES = 10;
+	
+	private TerrainButton[][] terrain = new TerrainButton[GRIDSIZE][GRIDSIZE];
+	
+	private int totalRevealed = 0;
 	
 	public WatchYourStep () {
 		//setup what goes into the window
@@ -43,8 +51,30 @@ public class WatchYourStep extends JFrame{
 		titleLabel.setOpaque(true);
 		add(titleLabel, BorderLayout.PAGE_START);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER); //left or right
+		
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(GRIDSIZE,GRIDSIZE));
+		for(int r = 0; r < GRIDSIZE; r++) {
+			for(int c = 0; c < GRIDSIZE; c++) {
+				terrain[r][c] = new TerrainButton(r, c);
+				centerPanel.add(terrain[r][c]);
+			}
+		}
 	}
 
+	private void setHoles() {
+		Random rand = new Random();
+		int pickRow;
+		int pickCol;
+		for(int i = 0; i < NUMBEROFHOLES; i++) {
+			do {
+				pickRow = rand.nextInt(GRIDSIZE);
+				pickCol = rand.nextInt(GRIDSIZE);
+			} while(terrain[pickRow][pickCol].hasHole());
+			terrain[pickRow][pickCol].setHole(true);
+			addToNeighborsHoleCount(pickRow, pickCol);
+		}
+	}
 	
 	public static void main(String[] args) {
 		try {
