@@ -27,6 +27,7 @@ public class WatchYourStep extends JFrame{
 	public WatchYourStep () {
 		//setup what goes into the window
 		initGUI();
+		setHoles();
 		//Title
 		setTitle("Game Window");
 		//Size
@@ -54,9 +55,19 @@ public class WatchYourStep extends JFrame{
 		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(GRIDSIZE,GRIDSIZE));
+		add(centerPanel, BorderLayout.CENTER);
 		for(int r = 0; r < GRIDSIZE; r++) {
 			for(int c = 0; c < GRIDSIZE; c++) {
 				terrain[r][c] = new TerrainButton(r, c);
+				terrain[r][c].addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						TerrainButton button = (TerrainButton) e.getSource();
+						int row = button.getRow();
+						int col = button.getCol();
+						clickedTerrain(row, col);
+					}
+				});
 				centerPanel.add(terrain[r][c]);
 			}
 		}
@@ -73,9 +84,53 @@ public class WatchYourStep extends JFrame{
 			} while(terrain[pickRow][pickCol].hasHole());
 			terrain[pickRow][pickCol].setHole(true);
 			addToNeighborsHoleCount(pickRow, pickCol);
+			terrain[pickRow][pickCol].reveal(true);
 		}
 	}
 	
+	private void addToNeighborsHoleCount(int row, int col) {
+		addToHoleCount(row --, col-- );
+		addToHoleCount(row-- , col );
+		addToHoleCount(row-- , col++ );
+		addToHoleCount(row , col-- );
+		//addToHoleCount(row , col ); //Center block
+		addToHoleCount(row , col++ );
+		addToHoleCount(row++ , col-- );
+		addToHoleCount(row++ , col );
+		addToHoleCount(row++ , col++ );
+	}
+	
+	private  void addToHoleCount(int row, int col) {
+		if(row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE) {
+			terrain[row][col].increaseHoleCount();
+			terrain[row][col].reveal(true); //THIS IS WHERE I AM RUNNING INTO TROUBLE
+		}
+	}
+	
+	/*private void clickedTerrain(int row, int col) {
+		check(row, col);
+		checkerNeighbors (row, col);
+	}*/
+	
+	/*private void check(int row, int col) {
+		if ( row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE 
+				&& !terrain[row][col].hasHole() && !terrain[row][col].isRevealed()) {
+			terrain[row][col].reveal(true);
+			
+		}
+		
+	}*/
+	
+	/*private void checkNeighbors (int row, col) {
+		check (row-- , col--);
+		check (row-- , col);
+		check (row-- , col++);
+		check (row , col--);
+		check (row , col++);
+		check (row++ , col--);
+		check (row++ , col);
+		check (row++ , col++);
+	}*/
 	public static void main(String[] args) {
 		try {
             //UI = user interface
