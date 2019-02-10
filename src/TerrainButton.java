@@ -5,7 +5,6 @@ import javax.swing.JButton;
 
 public class TerrainButton extends JButton{
 	private final static int SIZE = 50;
-	
 	private int row = 0;
 	private int col = 0;
 	private int nextToHoles = 0;

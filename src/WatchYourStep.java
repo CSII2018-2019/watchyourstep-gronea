@@ -65,7 +65,7 @@ public class WatchYourStep extends JFrame{
 						TerrainButton button = (TerrainButton) e.getSource();
 						int row = button.getRow();
 						int col = button.getCol();
-						clickedTerrain(row, col);
+						//clickedTerrain(row, col);
 					}
 				});
 				centerPanel.add(terrain[r][c]);
