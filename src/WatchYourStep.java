@@ -12,6 +12,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -65,7 +66,7 @@ public class WatchYourStep extends JFrame{
 						TerrainButton button = (TerrainButton) e.getSource();
 						int row = button.getRow();
 						int col = button.getCol();
-						//clickedTerrain(row, col);
+						clickedTerrain(row, col);
 					}
 				});
 				centerPanel.add(terrain[r][c]);
@@ -103,25 +104,35 @@ public class WatchYourStep extends JFrame{
 	private  void addToHoleCount(int row, int col) {
 		if(row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE) {
 			terrain[row][col].increaseHoleCount();
-			terrain[row][col].reveal(true); //THIS IS WHERE I AM RUNNING INTO TROUBLE
+			//terrain[row][col].reveal(true); //THIS IS WHERE I AM RUNNING INTO TROUBLE
 		}
 	}
 	
-	/*private void clickedTerrain(int row, int col) {
-		check(row, col);
-		checkerNeighbors (row, col);
-	}*/
+	private void clickedTerrain(int row, int col) {
+		if (terrain[row][col].hasHole()) {
+			String message = "You stepped in a hole. Game Over. Would you like to play again.";
+			promptForNewGame(message);
+		}else {
+			check(row, col);
+			checkNeighbors (row, col);
+		}
+		
+	}
 	
-	/*private void check(int row, int col) {
+	private void check(int row, int col) {
 		if ( row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE 
 				&& !terrain[row][col].hasHole() && !terrain[row][col].isRevealed()) {
 			terrain[row][col].reveal(true);
+			totalRevealed++;
+			if (!terrain[row][col].isNextToHoles()) {
+				checkNeighbors (row, col);
+			}
 			
 		}
 		
-	}*/
+	}
 	
-	/*private void checkNeighbors (int row, col) {
+	private void checkNeighbors (int row, int col) {
 		check (row-- , col--);
 		check (row-- , col);
 		check (row-- , col++);
@@ -130,7 +141,37 @@ public class WatchYourStep extends JFrame{
 		check (row++ , col--);
 		check (row++ , col);
 		check (row++ , col++);
-	}*/
+	}
+	private void promptForNewGame(String message) {
+		showHoles();
+		int option = JOptionPane.showConfirmDialog(this, message, "Play Again?", JOptionPane.YES_NO_OPTION);
+		if (option == JOptionPane.YES_OPTION) {
+			newGame();
+		}else {
+			System.exit(10);
+		}
+	}
+	
+	private void newGame() {
+		for (int y = 0; y < GRIDSIZE; y++) {
+			for (int x = 0; x < GRIDSIZE; x++) {
+				terrain [x][y].reset();
+			}
+		}
+		setHoles();
+		totalRevealed = 0;
+	}
+	
+	private void showHoles() {
+		for (int y = 0; y < GRIDSIZE; y++) {
+			for (int x = 0; x < GRIDSIZE; x++) {
+				if (terrain[x][y].hasHole()) {
+					terrain[x][y].reveal(true);
+				}
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		try {
             //UI = user interface

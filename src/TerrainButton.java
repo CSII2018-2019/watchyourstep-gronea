@@ -52,8 +52,8 @@ public class TerrainButton extends JButton{
 	
 	public void reveal(boolean reveal) {
 		revealed = reveal;
-		if (revealed = true) {
-			if(hole = true) {
+		if (revealed == true) {
+			if(hole == true) {
 				setBackground(Color.BLACK);
 			}else {
 				setBackground(Color.CYAN);
@@ -66,6 +66,7 @@ public class TerrainButton extends JButton{
 			setBackground(null);
 			setText(null);
 		}
+		setFocusPainted(false);
 	}
 	
 	public void reset() {
