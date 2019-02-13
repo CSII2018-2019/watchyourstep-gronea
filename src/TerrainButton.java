@@ -12,8 +12,8 @@ public class TerrainButton extends JButton{
 	private boolean revealed = false;
 	
 	public TerrainButton(int r, int c) {
-		r = row;
-		c = col;
+		row = r;
+		col = c;
 		Dimension size = new Dimension (SIZE, SIZE);
 		setPreferredSize(size);
 	}

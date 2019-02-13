@@ -1,15 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -85,26 +82,26 @@ public class WatchYourStep extends JFrame{
 			} while(terrain[pickRow][pickCol].hasHole());
 			terrain[pickRow][pickCol].setHole(true);
 			addToNeighborsHoleCount(pickRow, pickCol);
-			terrain[pickRow][pickCol].reveal(true);
+			//terrain[pickRow][pickCol].reveal(true);
 		}
 	}
 	
 	private void addToNeighborsHoleCount(int row, int col) {
-		addToHoleCount(row --, col-- );
-		addToHoleCount(row-- , col );
-		addToHoleCount(row-- , col++ );
-		addToHoleCount(row , col-- );
+		addToHoleCount(row -1, col-1 );
+		addToHoleCount(row-1 , col );
+		addToHoleCount(row-1 , col+1 );
+		addToHoleCount(row , col-1 );
 		//addToHoleCount(row , col ); //Center block
-		addToHoleCount(row , col++ );
-		addToHoleCount(row++ , col-- );
-		addToHoleCount(row++ , col );
-		addToHoleCount(row++ , col++ );
+		addToHoleCount(row , col+1 );
+		addToHoleCount(row+1 , col-1 );
+		addToHoleCount(row+1 , col );
+		addToHoleCount(row+1 , col+1 );
 	}
 	
 	private  void addToHoleCount(int row, int col) {
 		if(row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE) {
 			terrain[row][col].increaseHoleCount();
-			//terrain[row][col].reveal(true); //THIS IS WHERE I AM RUNNING INTO TROUBLE
+			//terrain[row][col].reveal(true);
 		}
 	}
 	
@@ -133,14 +130,14 @@ public class WatchYourStep extends JFrame{
 	}
 	
 	private void checkNeighbors (int row, int col) {
-		check (row-- , col--);
-		check (row-- , col);
-		check (row-- , col++);
-		check (row , col--);
-		check (row , col++);
-		check (row++ , col--);
-		check (row++ , col);
-		check (row++ , col++);
+		check (row-1 , col-1);
+		check (row-1 , col);
+		check (row-1 , col+1);
+		check (row , col-1);
+		check (row , col+1);
+		check (row+1 , col-1);
+		check (row+1 , col);
+		check (row+1 , col+1);
 	}
 	private void promptForNewGame(String message) {
 		showHoles();
