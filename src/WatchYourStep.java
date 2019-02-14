@@ -152,7 +152,7 @@ public class WatchYourStep extends JFrame{
 	private void newGame() {
 		for (int y = 0; y < GRIDSIZE; y++) {
 			for (int x = 0; x < GRIDSIZE; x++) {
-				terrain [x][y].reset();
+				terrain[x][y].reset();
 			}
 		}
 		setHoles();

@@ -72,6 +72,7 @@ public class TerrainButton extends JButton{
 	public void reset() {
 		hole = false;
 		revealed = false;
+		nextToHoles = 0;
 		setText(null);
 		setBackground(null);
 	}
