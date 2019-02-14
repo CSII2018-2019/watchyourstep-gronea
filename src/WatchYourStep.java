@@ -112,6 +112,10 @@ public class WatchYourStep extends JFrame{
 		}else {
 			check(row, col);
 			checkNeighbors (row, col);
+			if (totalRevealed == GRIDSIZE*GRIDSIZE - NUMBEROFHOLES) {
+				String message = "You won! Would You like to play Again?";
+				promptForNewGame(message);
+			}
 		}
 		
 	}
@@ -152,7 +156,7 @@ public class WatchYourStep extends JFrame{
 	private void newGame() {
 		for (int y = 0; y < GRIDSIZE; y++) {
 			for (int x = 0; x < GRIDSIZE; x++) {
-				terrain[x][y].reset();
+				terrain [x][y].reset();
 			}
 		}
 		setHoles();

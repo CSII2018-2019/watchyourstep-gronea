@@ -11,6 +11,7 @@ public class TerrainButton extends JButton{
 	private boolean hole = false;
 	private boolean revealed = false;
 	
+	
 	public TerrainButton(int r, int c) {
 		row = r;
 		col = c;
