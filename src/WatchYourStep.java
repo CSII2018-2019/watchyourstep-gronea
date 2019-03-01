@@ -113,7 +113,7 @@ public class WatchYourStep extends JFrame{
 			check(row, col);
 			checkNeighbors (row, col);
 			if (totalRevealed == GRIDSIZE*GRIDSIZE - NUMBEROFHOLES) {
-				String message = "You won! Would You like to play Again?";
+				String message = "You won. Would You like to play Again?";
 				promptForNewGame(message);
 			}
 		}
